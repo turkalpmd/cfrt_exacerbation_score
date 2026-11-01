@@ -1,0 +1,51 @@
+{
+ "outcome": "y_fev1_pp_change",
+ "output": "change in FEV1 % predicted from the anchor year",
+ "inputs_in_order": [
+  "fev1_z_trend_lag",
+  "FEV1_Z_lag_1",
+  "bmiZscore_lag_1",
+  "fev1_fvc_z_gap",
+  "AgeAtVisit_lag_1",
+  "SweatTestVal",
+  "heightZScore_lag_1",
+  "bmi_trend_lag",
+  "ivDaysTotal_lag_2",
+  "NontubMycobacteria_lag_1",
+  "ivDaysTotal_lag_1",
+  "cftr_incomplete",
+  "MRSA_lag_2",
+  "AgeDiagnosis"
+ ],
+ "input_labels": {
+  "fev1_z_trend_lag": "FEV1 z change from t−1",
+  "FEV1_Z_lag_1": "FEV1 z-score",
+  "bmiZscore_lag_1": "BMI z-score",
+  "fev1_fvc_z_gap": "FEV1 z minus FVC z",
+  "AgeAtVisit_lag_1": "Age",
+  "SweatTestVal": "Sweat chloride",
+  "heightZScore_lag_1": "Height z-score",
+  "bmi_trend_lag": "BMI z change from t−1",
+  "ivDaysTotal_lag_2": "IV-antibiotic days, t−1",
+  "NontubMycobacteria_lag_1": "Non-tuberculous mycobacteria",
+  "ivDaysTotal_lag_1": "IV-antibiotic days, t",
+  "cftr_incomplete": "CFTR genotype incomplete",
+  "MRSA_lag_2": "MRSA, t−1",
+  "AgeDiagnosis": "Age at diagnosis"
+ },
+ "missing_values": "allowed (LightGBM native handling)",
+ "hyperparameters": {
+  "n_estimators": 768,
+  "learning_rate": 0.007612808012127435,
+  "num_leaves": 3,
+  "max_depth": 4,
+  "min_child_samples": 11,
+  "subsample": 0.5660813452486162,
+  "colsample_bytree": 0.4063385458809783,
+  "reg_lambda": 6.026339514845905,
+  "reg_alpha": 0.08707959703631007,
+  "objective": "regression_l1"
+ },
+ "n_development": 1111,
+ "model_file": "ml_fev1_change.lgbm.txt"
+}

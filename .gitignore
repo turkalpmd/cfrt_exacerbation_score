@@ -1,0 +1,13 @@
+# This repository must never contain patient-level data or results.
+data/*
+!data/reference/
+data/reference/who_bmi_*.xlsx
+results/
+*.xlsx
+*.xls
+*.sav
+*.dta
+.pyenv
+__pycache__/
+.pytest_cache/
+.DS_Store

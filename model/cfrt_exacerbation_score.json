@@ -1,0 +1,209 @@
+{
+ "name": "CFRT exacerbation score (working name)",
+ "version": "1.0",
+ "outcome": "IV-antibiotic-treated pulmonary exacerbation in the year after the annual review (year t+1)",
+ "population": "people with CF older than 5 years, without CFTR modulator therapy, Cystic Fibrosis Registry of Turkiye 2019-2024",
+ "development": {
+  "prediction_years": 1121,
+  "events": 251
+ },
+ "risk": "p = 1 / (1 + exp(-logit))",
+ "logit": "logit(p) = -2.933 -0.266×[FEV1 z-score (anchor year, best of year)] -0.225×[BMI z-score (anchor year)] +0.686×[P. aeruginosa isolated (anchor year or year before)] +0.595×[MRSA isolated (anchor year or year before)] +0.527×ln(1 + IV days, t−1 and t)",
+ "intercept": -2.932917563929728,
+ "predictors": {
+  "FEV1_Z_lag_1": {
+   "definition": "FEV1 z-score (GLI-2012), best of the anchor year t",
+   "beta": -0.26645704500114326,
+   "odds_ratio": 0.7660889103677057,
+   "odds_ratio_95ci": [
+    0.6850694630553713,
+    0.8566900879961461
+   ]
+  },
+  "bmiZscore_lag_1": {
+   "definition": "BMI z-score of the anchor year t, as recorded by the registry",
+   "beta": -0.22488285426552101,
+   "odds_ratio": 0.7986097670075991,
+   "odds_ratio_95ci": [
+    0.6643369379905766,
+    0.9600212234006149
+   ]
+  },
+  "pa_any_2y": {
+   "definition": "P. aeruginosa recorded (chronic infection or at least one positive culture) in year t-1 or t: 1 = yes, 0 = no",
+   "beta": 0.68598065204701,
+   "odds_ratio": 1.9857181796356627,
+   "odds_ratio_95ci": [
+    1.3672386522418598,
+    2.8839710481195886
+   ]
+  },
+  "mrsa_any_2y": {
+   "definition": "MRSA recorded (chronic infection or at least one positive culture) in year t-1 or t: 1 = yes, 0 = no",
+   "beta": 0.5946022337760292,
+   "odds_ratio": 1.8123099258952595,
+   "odds_ratio_95ci": [
+    1.1116266865412228,
+    2.95464953051636
+   ]
+  },
+  "log_iv_burden_2yr": {
+   "definition": "ln(1 + IV-antibiotic days summed over years t-1 and t)",
+   "beta": 0.5268980521262899,
+   "odds_ratio": 1.6936704743432238,
+   "odds_ratio_95ci": [
+    1.505291345992324,
+    1.9056242389881037
+   ]
+  }
+ },
+ "missing_values": {
+  "imputation_medians": {
+   "FEV1_Z_lag_1": -1.382,
+   "bmiZscore_lag_1": -0.41,
+   "pa_any_2y": 0.0,
+   "mrsa_any_2y": 0.0,
+   "log_iv_burden_2yr": 0.0
+  },
+  "rules": "Do not compute the score if anchor-year FEV1 or the IV-antibiotic history is unavailable. Missing BMI z: use the cohort median and report the range of risk over BMI z −2 to +1. Unknown culture results are scored as negative and the risk is reported as a lower bound."
+ },
+ "points_chart": {
+  "scale_points_per_logit": 39.57429617943336,
+  "linear_predictor_at_zero_points": -3.9155973624630565,
+  "variables": {
+   "FEV1_Z_lag_1": {
+    "label": "FEV1 z-score (anchor year, best of year)",
+    "range": [
+     -6,
+     2
+    ],
+    "beta": -0.26645704500114326,
+    "zero_at": 2,
+    "log1p_days": false,
+    "points_at_ticks": {
+     "-6.0": 84.35880014377477,
+     "-5.0": 73.81395012580293,
+     "-4.0": 63.26910010783108,
+     "-3.0": 52.72425008985923,
+     "-2.0": 42.179400071887386,
+     "-1.0": 31.63455005391554,
+     "0.0": 21.089700035943693,
+     "1.0": 10.544850017971847,
+     "2.0": -0.0
+    }
+   },
+   "bmiZscore_lag_1": {
+    "label": "BMI z-score (anchor year)",
+    "range": [
+     -3,
+     2
+    ],
+    "beta": -0.22488285426552101,
+    "zero_at": 2,
+    "log1p_days": false,
+    "points_at_ticks": {
+     "-3.0": 44.49790340190039,
+     "-2.0": 35.59832272152031,
+     "-1.0": 26.698742041140235,
+     "0.0": 17.799161360760156,
+     "1.0": 8.899580680380078,
+     "2.0": -0.0
+    }
+   },
+   "pa_any_2y": {
+    "label": "P. aeruginosa isolated (anchor year or year before)",
+    "range": [
+     0,
+     1
+    ],
+    "beta": 0.68598065204701,
+    "zero_at": 0,
+    "log1p_days": false,
+    "points_at_ticks": {
+     "0.0": 0.0,
+     "1.0": 27.147201497469194
+    }
+   },
+   "mrsa_any_2y": {
+    "label": "MRSA isolated (anchor year or year before)",
+    "range": [
+     0,
+     1
+    ],
+    "beta": 0.5946022337760292,
+    "zero_at": 0,
+    "log1p_days": false,
+    "points_at_ticks": {
+     "0.0": 0.0,
+     "1.0": 23.530964908405252
+    }
+   },
+   "log_iv_burden_2yr": {
+    "label": "IV-antibiotic days, anchor year + year before",
+    "range": [
+     0,
+     120
+    ],
+    "beta": 0.5268980521262899,
+    "zero_at": 0,
+    "log1p_days": true,
+    "points_at_ticks": {
+     "0": 0.0,
+     "7": 43.35972394768317,
+     "14": 56.467232573128285,
+     "28": 70.21357163060758,
+     "42": 78.4271139436419,
+     "56": 84.30416694379367,
+     "84": 92.63647388790447,
+     "120": 100.0
+    }
+   }
+  },
+  "total_points_to_risk": {
+   "0": 0.019539249783558355,
+   "10": 0.025015935309375466,
+   "20": 0.03197762311513542,
+   "30": 0.04079561584828492,
+   "40": 0.05191480859506531,
+   "50": 0.06585655660749866,
+   "60": 0.0832137503890164,
+   "70": 0.10463320854260834,
+   "80": 0.13077960562115884,
+   "90": 0.16227547880722856,
+   "100": 0.19961463013017391,
+   "110": 0.24305269005703803,
+   "120": 0.29248899829610886,
+   "130": 0.34736614655256287,
+   "140": 0.40662200938388804,
+   "150": 0.46872629946701344,
+   "160": 0.5318146974785782,
+   "170": 0.593902098747867,
+   "180": 0.6531262327334673,
+   "190": 0.7079604023147135,
+   "200": 0.7573468040570319,
+   "210": 0.8007322623226905,
+   "220": 0.8380196572430741,
+   "230": 0.8694671734749525,
+   "240": 0.8955701602515886,
+   "250": 0.9169518482571373,
+   "260": 0.934276976766324,
+   "270": 0.9481920237374625,
+   "280": 0.9592893175024083,
+   "290": 0.9680895625890338,
+   "300": 0.975037000919301
+  }
+ },
+ "worked_example": {
+  "inputs": {
+   "FEV1_Z_lag_1": -2.0,
+   "bmiZscore_lag_1": -0.5,
+   "pa_any_2y": 1,
+   "mrsa_any_2y": 0,
+   "log_iv_burden_2yr": 14
+  },
+  "linear_predictor": -0.17471501872670858,
+  "risk": 0.45643201626022906,
+  "points": 148.04278584343507
+ },
+ "intended_use": "identify modulator-untreated patients who may benefit from closer review at the year-end clinic; not for de-escalation of care or for allocating modulators"
+}

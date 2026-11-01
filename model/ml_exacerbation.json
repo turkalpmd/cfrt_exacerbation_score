@@ -1,0 +1,52 @@
+{
+ "outcome": "y_pex",
+ "output": "probability",
+ "inputs_in_order": [
+  "FEV1_Z_lag_1",
+  "ivDaysTotal_lag_1",
+  "bmiZscore_lag_1",
+  "AgeDiagnosis",
+  "fev1_z_trend_lag",
+  "heightZScore_lag_1",
+  "bmi_trend_lag",
+  "SweatTestVal",
+  "fev1_fvc_z_gap",
+  "ivDaysTotal_lag_2",
+  "AgeAtVisit_lag_1",
+  "MRSA_lag_2",
+  "PseudomAer_lag_2",
+  "cftr_n_f508del",
+  "PseudomAer_lag_1"
+ ],
+ "input_labels": {
+  "FEV1_Z_lag_1": "FEV1 z-score",
+  "ivDaysTotal_lag_1": "IV-antibiotic days, t",
+  "bmiZscore_lag_1": "BMI z-score",
+  "AgeDiagnosis": "Age at diagnosis",
+  "fev1_z_trend_lag": "FEV1 z change from t−1",
+  "heightZScore_lag_1": "Height z-score",
+  "bmi_trend_lag": "BMI z change from t−1",
+  "SweatTestVal": "Sweat chloride",
+  "fev1_fvc_z_gap": "FEV1 z minus FVC z",
+  "ivDaysTotal_lag_2": "IV-antibiotic days, t−1",
+  "AgeAtVisit_lag_1": "Age",
+  "MRSA_lag_2": "MRSA, t−1",
+  "PseudomAer_lag_2": "P. aeruginosa, t−1",
+  "cftr_n_f508del": "F508del alleles",
+  "PseudomAer_lag_1": "P. aeruginosa, t"
+ },
+ "missing_values": "allowed (LightGBM native handling)",
+ "hyperparameters": {
+  "n_estimators": 323,
+  "learning_rate": 0.031003678331908695,
+  "num_leaves": 3,
+  "max_depth": 6,
+  "min_child_samples": 16,
+  "subsample": 0.6488614169887909,
+  "colsample_bytree": 0.7017901769355469,
+  "reg_lambda": 0.032511948892461236,
+  "reg_alpha": 3.431176121597396
+ },
+ "n_development": 1121,
+ "model_file": "ml_exacerbation.lgbm.txt"
+}
