@@ -2,8 +2,13 @@
 import sys
 from pathlib import Path
 
+import pytest  # noqa: E402
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from lib.cftr import classify_genotype as cg  # noqa: E402
+from lib.cftr import MAP_CSV, classify_genotype as cg  # noqa: E402
+
+if not MAP_CSV.exists():   # built by scripts/cftr_variant_map.py from the registry export (not distributed)
+    pytest.skip("CFTR variant map not built yet (run scripts/cftr_variant_map.py)", allow_module_level=True)
 
 NAN = float("nan")
 

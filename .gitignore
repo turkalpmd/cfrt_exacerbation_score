@@ -1,12 +1,13 @@
-# This repository must never contain patient-level data or results.
-data/*
-!data/reference/
-data/reference/who_bmi_*.xlsx
+# This repository never contains data: no registry export, cohort, reference tables or results.
+data/
 results/
+*.csv
 *.xlsx
 *.xls
 *.sav
 *.dta
+*.npy
+*.parquet
 .pyenv
 __pycache__/
 .pytest_cache/

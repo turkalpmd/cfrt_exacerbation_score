@@ -1,8 +1,8 @@
-# CF Year Ahead
+# CFRT exacerbation score
 
 Analysis code for the study *One-year prediction of lung function and pulmonary exacerbation in CFTR modulator-untreated people with cystic fibrosis: a national registry study*, based on the Cystic Fibrosis Registry of Türkiye (CFRT). Citation details will be added on publication.
 
-The repository holds the analysis code, the equation of the CFRT exacerbation score and the two trained machine-learning models. **It contains no patient-level data.** Registry data are held by the CFRT and are available from the registry steering committee on reasonable request.
+The repository holds the analysis code, the equation of the CFRT exacerbation score and the two trained machine-learning models. **It contains no data of any kind**: no registry data, no data derived from the registry and no reference tables. Registry data are held by the CFRT and are available from the registry steering committee on reasonable request.
 
 ## Contents
 
@@ -17,9 +17,8 @@ The repository holds the analysis code, the equation of the CFRT exacerbation sc
 | `lib/` | Shared code: feature panels, patient-grouped cross-validation, models, statistics, CFTR variant classification, centre harmonisation |
 | `R/figures.R` | Figures (ggplot2) |
 | `tests/` | Tests of the CFTR classification and of cohort integrity |
-| `data/reference/` | CFTR variant classification map (variant strings and classes only), cached public CFTR2, FDA and ClinVar look-ups, CDC BMI reference |
 
-Not included: the registry export, the analysis cohort, out-of-fold predictions, results and figures. Allele and patient counts were removed from the variant map. The per-variable minimum and maximum values that LightGBM stores in a model file were removed because they are single patients' values; predictions are unchanged (checked when the repository was built).
+Not included: the registry export, the analysis cohort, the CFTR variant map, reference tables, out-of-fold predictions, results and figures; `data/` and `results/` are created locally when the analysis is run and are excluded from version control. The per-variable minimum and maximum values that LightGBM stores in a model file were removed because they are single patients' values; predictions are unchanged (checked when the repository was built).
 
 ## Study design in brief
 
@@ -93,15 +92,15 @@ Requirements: Python 3.12 with `requirements.txt`, and R 4.5 with ggplot2, patch
 
 1. `cp .pyenv.example .pyenv` and set the Python and Rscript paths.
 2. `export CFRT_EXPORT=/path/to/export.xlsx`, the CFRT annual export (one row per patient-year, registry column names).
-3. Download the WHO 2007 BMI-for-age tables into `data/reference/` (see `data/reference/README.md`); they are used by one sensitivity analysis.
-4. Optional: `export NCBI_EMAIL=you@example.org`, needed only if a CFTR variant is not in the cached look-ups.
+3. Download the WHO 2007 BMI-for-age LMS tables for boys and girls, 5–19 years (https://www.who.int/tools/growth-reference-data-for-5to19-years), and save them as `data/reference/who_bmi_boys.xlsx` and `data/reference/who_bmi_girls.xlsx`; they are used by one sensitivity analysis.
+4. `export NCBI_EMAIL=you@example.org`. The first step, `cftr_variant_map.py`, builds the CFTR variant map from the export and downloads the public references it needs (CFTR2 variant list, FDA labels, NCBI RefSeq and ClinVar) into `data/reference/`; this needs internet access.
 5. `bash run_all.sh`. Tables are written to `results/tables/`, figures to `results/figures/` and all reported numbers to `results/number_sheet.txt`. The run takes about 40 minutes on 10 cores.
 
 `00b_data_audit.py` and part of `20_consistency_checks.py` compare the cohort with earlier internal extracts; these steps are skipped when the extracts are absent. `16_figure_data.py` writes `results/centre_key_CONFIDENTIAL.json`, which links anonymised centre codes to centre names; `results/` is excluded from version control and must not be shared. Tests: `pytest tests` (the cohort tests are skipped without the export).
 
 | Step | Script | Output |
 |---|---|---|
-| CFTR variants | `cftr_variant_map.py` | Variant classification map (CFTR2, FDA label, clinician assignments) |
+| CFTR variants | `cftr_variant_map.py` | Variant classification map (CFTR2, FDA label, clinician assignments), written to `data/reference/` |
 | Cohort | `00_build_cohort.py` | Prediction-years and outcomes (`data/`, not shared) |
 | Score development | `21_model_development.py`, `29_culture_window.py`, `25_candidate_screen.py`, `12_lr5_model_spec.py` | Variable selection, culture window, candidate screen, equation and points chart |
 | Exacerbation and decline | `03_classification.py`, `04_calibration.py`, `05_dca.py`, `08_subgroup.py`, `26_pa_vs_genotype.py` | Discrimination, calibration, decision curves, subgroups, genotype |
